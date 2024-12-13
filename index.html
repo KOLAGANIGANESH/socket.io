@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Socket.IO Client</title>
+</head>
+<body>
+    <h1>Socket.IO Client Example</h1>
+    <p id="message"></p> <!-- For displaying the message from the server -->
+
+    <!-- Include the socket.io-client library from a CDN -->
+    <script type="module">
+        import { io } from "https://cdn.socket.io/4.7.1/socket.io.esm.min.js"; // Use the correct version from CDN
+
+        // Connect to the server (default is localhost:3000)
+        const socket = io(); 
+
+        // Log when the connection is successful
+        socket.on("connect", () => {
+            console.log("Connected To (client), Socket ID:", socket.id); // Logs the socket ID
+        });
+
+        // Listen for a 'message' event from the server
+        socket.on("message", (data) => {
+            console.log("Message from server:", data); // Logs the server's message
+            // document.getElementById("message").innerText = data; // Display the message on the webpage
+            
+        });
+
+        // Disconnect from server after 5 seconds
+        // setTimeout(() => {
+        //     socket.disconnect();
+        // }, 5000);
+
+        socket.on("disconnect", () => {
+            console.log("Disconnected From (client), Socket ID:", socket.id); // Logs the socket ID
+        });
+    </script>
+</body>
+</html>
